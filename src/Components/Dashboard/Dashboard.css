@@ -1,0 +1,96 @@
+/* Dashboard.css */
+.drawer {
+    display: flex;
+    height: 100vh;
+    overflow: hidden;
+  }
+  
+  .drawer-toggle {
+    display: none;
+  }
+  
+  .drawer-content {
+    flex: 1;
+    transition: margin-left 0.3s;
+  }
+  
+  .drawer-side {
+    position: absolute;
+    left: 0;
+    top: 0;
+    bottom: 0;
+    width: 0;
+    transition: width 0.3s;
+    overflow-y: auto;
+    background: #fff; /* Adjust as needed */
+    z-index: 100;
+  }
+  
+  .drawer-toggle:checked ~ .drawer-side {
+    width: 16rem; /* Adjust the width as needed */
+  }
+  
+  .drawer-toggle:checked ~ .drawer-content {
+    margin-left: 16rem; /* Same as the drawer width */
+  }
+  html:has(.drawer-toggle:checked) {
+    scrollbar-gutter: inherit !important;
+  }
+  @media (max-width: 1024px) {
+    .dashboard-title{
+      gap:22rem;
+    }
+    .grid{
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+    .drawer-toggle:checked ~ .drawer-side {
+      width: 14rem; /* Adjust the width as needed */
+    }
+    
+    .drawer-toggle:checked ~ .drawer-content {
+      margin-left: 14rem; /* Same as the drawer width */
+    }
+  }
+  @media (max-width: 768px){
+    .stats-card{
+      width:100%;
+    }
+    .dashboard-title{
+      gap:22rem;
+    }
+    .grid{
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+    .drawer-toggle:checked ~ .drawer-side {
+      width: 14rem; /* Adjust the width as needed */
+    }
+    
+    .drawer-toggle:checked ~ .drawer-content {
+      margin-left: 14rem; /* Same as the drawer width */
+    }
+  }
+  @media only screen and (max-width: 640px){
+    .grid{
+      grid-template-columns: repeat(1, minmax(0, 1fr));
+    }
+    .stats-card{
+      width:260px;
+    }
+    .side-li{
+      width: 60px;
+      font-size: 20px;
+    }
+    .sidebar-text{
+      display:none;
+    }
+    .dashboard-title{
+      gap:4rem;
+    }
+    .drawer-toggle:checked ~ .drawer-side {
+      width: 6rem; /* Adjust the width as needed */
+    }
+    
+    .drawer-toggle:checked ~ .drawer-content {
+      margin-left: 6rem; /* Same as the drawer width */
+    }
+  }
