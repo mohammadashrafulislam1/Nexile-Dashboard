@@ -351,7 +351,7 @@ const Services = () => {
           <label className="label">
             <span className="label-text">Tech Stacks</span>
           </label>
-          <div className="grid lg:grid-cols-3 gap-5 sm:grid-cols-1 md:grid-cols-3">
+          <div className="flex gap-5 flex-wrap">
             {techStacks?.map((stack) => (
               <div
                 key={stack._id}
