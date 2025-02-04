@@ -58,9 +58,10 @@ const Work = () => {
   useEffect(() => {
     const fetchWorkData = async () => {
         try {
-            const response = await axios.get(`${endPoint}/works/${workToEdit?._id}`);
+            const response = await axios.get(`${endPoint}/works/${workToEdit?.title}`);
             setWorkToUpdate(response?.data?.work);
             setFormData(response?.data?.work);
+            console.log(response?.data?.work)
             setFormData((prevData) => ({
               ...prevData,
               completionDate: formatDate(workToEdit.completionDate), // Format the initial date

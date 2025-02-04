@@ -7,13 +7,14 @@ import { endPoint } from '../Components/ForAll/ForAll';
 import { TagsInput } from 'react-tag-input-component';
 import Swal from 'sweetalert2';
 import ReactQuill from "react-quill";
-import "react-quill/dist/quill.snow.css"; // Import default styling
+import 'react-quill/dist/quill.snow.css';  // Import Quill's snow theme
 
 const AddBlog = () => {
     const location = useLocation();
     const navigate = useNavigate();
     const blogToEdit = location.state?.blog || null;
 
+    console.log(blogToEdit)
     const [title, setTitle] = useState(blogToEdit?.title || '');
     const [category, setCategory] = useState(blogToEdit?.category || '');
     const [blogCategories, setBlogCategories] = useState([]);
@@ -161,31 +162,33 @@ const AddBlog = () => {
                     </select>
                 </div>
 
-                <div className="form-control " 
+                <div className="form-control  mb-[300px]" 
                         style={{ height: "300px" }}>
                     <label className="label">
                         <span className="label-text">Description</span>
                     </label>
                     <ReactQuill
-                        className="rounded-[10px] h-fit mb-8"
-                        value={description}
-                        onChange={(e) => setDescription(e.target.value)}
-                        required
-                        theme="snow" // Default theme with a toolbar
-                        style={{ height: "300px" }} // Set the height here
-                modules={{
-                    toolbar: [
-                        [{ header: [1, 2, 3, 4, 5, 6, false] }],
-                        ["bold", "italic", "underline", "strike"], // Text formatting
-                        [{ list: "ordered" }, { list: "bullet" }], // Lists
-                        ["link", "image", "video"], // Media
-                        ["clean"], // Remove formatting
-                    ],
-                }}
-                    />
+  className="react-quill-editor rounded-[10px] mb-32"
+  value={description}
+  onChange={(value) => setDescription(value)}  // Use the updated value directly
+  required
+  theme="snow" // Default theme with a toolbar
+  style={{ height: "230px" }} // Set the height here
+  modules={{
+    toolbar: [
+      [{ header: [1, 2, 3, 4, 5, 6, false] }],
+      ["bold", "italic", "underline", "strike"], // Text formatting
+      [{ list: "ordered" }, { list: "bullet" }], // Lists
+      ["link", "image", "video"], // Media
+      ["clean"], // Remove formatting
+    ],
+  }}
+/>
+
+
                 </div>
 
-                <div className="form-control">
+                <div className="form-control mt-24">
                     <label className="label">
                         <span className="label-text">Meta Title</span>
                     </label>
