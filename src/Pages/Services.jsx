@@ -96,7 +96,7 @@ const Services = () => {
       }
     } catch (error) {
       console.error("Error adding service:", error);
-      toast.error("Error adding service");
+      toast.error(error |"Error adding service");
     } finally {
       setLoading(false);
     }
