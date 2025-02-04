@@ -1,1 +1,1 @@
-export const endPoint = "http://localhost:3000/api";
+export const endPoint = "https://nexile-backend.vercel.app/api";
