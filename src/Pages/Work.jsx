@@ -119,7 +119,7 @@ const realUrl = workToEdit?.title.replace(/_/g, " ");
    };
 
    const removeImage = async (index, img) => {
-    console.log(index);
+    console.log(index, img);
     
     if (workToEdit?._id) {
       const publicId = img?.publicId; 
