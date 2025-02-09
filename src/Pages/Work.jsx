@@ -155,6 +155,7 @@ const realUrl = workToEdit?.title.replace(/_/g, " ");
             setImages(images.filter((_, i) => i !== index)); 
             toast.success(`Image deleted successfully`);
           } else {
+            console.log(result)
             toast.error(result.message || 'Error deleting image');
           }
         } catch (error) {
@@ -168,7 +169,6 @@ const realUrl = workToEdit?.title.replace(/_/g, " ");
       }
     }
   };
-  
   
   
   const removePreviewImage = async (index, imgUrl) => {
