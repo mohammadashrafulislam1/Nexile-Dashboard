@@ -118,7 +118,7 @@ const realUrl = workToEdit?.title.replace(/_/g, " ");
     setPreviewImages((prevPreviews) => [...prevPreviews, ...newImagePreviews]);
    };
 
-   const removeImage = async (index, img) => {
+  const removeImage = async (index, img) => {
     console.log(index, img);
     const confirmDelete = await Swal.fire({
       title: "Are you sure?",
@@ -128,34 +128,47 @@ const realUrl = workToEdit?.title.replace(/_/g, " ");
       confirmButtonColor: "#d33",
       cancelButtonColor: "#3085d6",
       confirmButtonText: "Yes, delete it!",
-  });
-
-  if (confirmDelete.isConfirmed) {
-    if (workToEdit?._id) {
-      const publicId = img?.publicId; 
-      if (!publicId) {
-        toast.error("Missing publicId for image deletion.");
-        return;
-      }
+    });
   
-      try {
-        // ✅ Correct API call: Send publicId in request body
-        await axios.delete(`${endPoint}/works/${workToEdit._id}/image`,
-          publicId);
+    if (confirmDelete.isConfirmed) {
+      if (workToEdit?._id) {
+        const publicId = img?.publicId; 
+        if (!publicId) {
+          toast.error("Missing publicId for image deletion.");
+          return;
+        }
   
-        // ✅ Remove the deleted image from local state
-        setImages(images.filter((_, i) => i !== index)); 
-        toast.success(`Image deleted successfully`);
-      } catch (error) {
-        console.error("Error deleting image:", error);
-        toast.error("Error deleting image");
+        try {
+          // Using fetch to delete the image
+          const response = await fetch(`${endPoint}/works/${workToEdit._id}/image`, {
+            method: 'DELETE',
+            headers: {
+              'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({ publicId }), // Send the publicId in the request body
+          });
+  
+          const result = await response.json();
+          
+          if (response.ok) {
+            // ✅ Remove the deleted image from local state
+            setImages(images.filter((_, i) => i !== index)); 
+            toast.success(`Image deleted successfully`);
+          } else {
+            toast.error(result.message || 'Error deleting image');
+          }
+        } catch (error) {
+          console.error("Error deleting image:", error);
+          toast.error("Error deleting image");
+        }
+      } else {
+        // ✅ Remove image locally if there's no work ID
+        setImages(images.filter((_, i) => i !== index));
+        toast.success(`Image removed from local data successfully`);
       }
-    } else {
-      // ✅ Remove image locally if there's no work ID
-      setImages(images.filter((_, i) => i !== index));
-      toast.success(`Image removed from local data successfully`);
-    } }
+    }
   };
+  
   
   
   const removePreviewImage = async (index, imgUrl) => {
