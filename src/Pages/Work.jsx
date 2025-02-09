@@ -119,31 +119,38 @@ const realUrl = workToEdit?.title.replace(/_/g, " ");
    };
 
    const removeImage = async (index, img) => {
-    console.log(index)
-    // Check if workToEdit._id is available
+    console.log(index);
+    
     if (workToEdit?._id) {
       const publicId = img?.publicId; 
-        try {
-          // Make an API call to delete the image from the server
-          await axios.delete(`${endPoint}/works/${workToUpdate?._id}/image`, 
-            publicId  // Send publicId in the request body
-);
+      if (!publicId) {
+        toast.error("Missing publicId for image deletion.");
+        return;
+      }
   
-          // If the deletion is successful, remove the image from local state
-          setImages(images.filter((_, i) => i !== index)); // Remove the selected image
-          toast.success(`Image deleted successfully`);
-        } catch (error) {
-          // Handle any errors that occur during the deletion
-          console.error("Error deleting image:", error);
-          toast.error("Error deleting image");
-        }
-      
+      try {
+        // ✅ Correct API call: Send publicId in request body
+        await axios.delete(`${endPoint}/works/${workToEdit._id}/image`, {
+          data: { publicId },  // ✅ Correct format
+          headers: {
+            "Content-Type": "application/json"
+          }
+        });
+  
+        // ✅ Remove the deleted image from local state
+        setImages(images.filter((_, i) => i !== index)); 
+        toast.success(`Image deleted successfully`);
+      } catch (error) {
+        console.error("Error deleting image:", error);
+        toast.error("Error deleting image");
+      }
     } else {
-      // If workToEdit._id is not available, just remove the image locally
-      setImages(images.filter((_, i) => i !== index)); // Remove the selected image
+      // ✅ Remove image locally if there's no work ID
+      setImages(images.filter((_, i) => i !== index));
       toast.success(`Image removed from local data successfully`);
     }
   };
+  
   
   const removePreviewImage = async (index, imgUrl) => {
     console.log(index);
