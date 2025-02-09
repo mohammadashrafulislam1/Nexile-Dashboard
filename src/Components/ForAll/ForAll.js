@@ -1,1 +1,1 @@
-export const endPoint = "https://nexile-backend.vercel.app/api";
+export const endPoint = "https://nexile-backend.onrender.com/api";

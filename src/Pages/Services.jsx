@@ -92,7 +92,8 @@ const Services = () => {
         });
         toast.success(selectedService ? "Service updated successfully!" : "Service added successfully!");
       } else {
-        toast.error("Failed to add/update service.");
+        console.log(response)
+        toast.error(response ||"Failed to add/update service.");
       }
     } catch (error) {
       console.error("Error adding service:", error);
