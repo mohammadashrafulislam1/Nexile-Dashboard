@@ -125,7 +125,7 @@ const realUrl = workToEdit?.title.replace(/_/g, " ");
       const publicId = img?.publicId; 
         try {
           // Make an API call to delete the image from the server
-          await axios.delete(`${endPoint}/works/${workToEdit._id}/image`, {
+          await axios.delete(`${endPoint}/works/${workToUpdate?._id}/image`, {
             data: { publicId } // Send publicId in the request body
           });
   
