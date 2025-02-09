@@ -140,7 +140,7 @@ const realUrl = workToEdit?.title.replace(/_/g, " ");
   
         try {
           // Using fetch to delete the image
-          const response = await fetch(`${endPoint}/works/${workToEdit._id}/image`, {
+          const response = await fetch(`http://localhost:3000/api/works/${workToEdit._id}/image`, {
             method: 'DELETE',
             headers: {
               'Content-Type': 'application/json',

@@ -1,1 +1,1 @@
-export const endPoint = "https://nexile-backend.onrender.com/api";
+export const endPoint = "http://localhost:3000/api";
