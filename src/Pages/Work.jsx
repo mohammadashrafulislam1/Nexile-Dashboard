@@ -120,7 +120,17 @@ const realUrl = workToEdit?.title.replace(/_/g, " ");
 
    const removeImage = async (index, img) => {
     console.log(index, img);
-    
+    const confirmDelete = await Swal.fire({
+      title: "Are you sure?",
+      text: "This action cannot be undone.",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#d33",
+      cancelButtonColor: "#3085d6",
+      confirmButtonText: "Yes, delete it!",
+  });
+
+  if (confirmDelete.isConfirmed) {
     if (workToEdit?._id) {
       const publicId = img?.publicId; 
       if (!publicId) {
@@ -130,12 +140,8 @@ const realUrl = workToEdit?.title.replace(/_/g, " ");
   
       try {
         // ✅ Correct API call: Send publicId in request body
-        await axios.delete(`${endPoint}/works/${workToEdit._id}/image`, {
-          data: { publicId },  // ✅ Correct format
-          headers: {
-            "Content-Type": "application/json"
-          }
-        });
+        await axios.delete(`${endPoint}/works/${workToEdit._id}/image`,
+          publicId);
   
         // ✅ Remove the deleted image from local state
         setImages(images.filter((_, i) => i !== index)); 
@@ -148,7 +154,7 @@ const realUrl = workToEdit?.title.replace(/_/g, " ");
       // ✅ Remove image locally if there's no work ID
       setImages(images.filter((_, i) => i !== index));
       toast.success(`Image removed from local data successfully`);
-    }
+    } }
   };
   
   
