@@ -58,8 +58,7 @@ const Work = () => {
   useEffect(() => {
     const fetchWorkData = async () => {
         try {
-const realUrl = workToEdit.title?.replace(/_/g, " ");
-            const response = await axios.get(`${endPoint}/works/${realUrl}`);
+            const response = await axios.get(`${endPoint}/works/${workToEdit?._id}`);
             setWorkToUpdate(response?.data?.work);
             setFormData(response?.data?.work);
             console.log(response?.data?.work)
