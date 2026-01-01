@@ -2,7 +2,7 @@ import { useContext, useState } from "react";
 import "./Dashboard.css";
 import { CiMenuFries } from "react-icons/ci";
 import { RxAvatar, RxCross1 } from "react-icons/rx";
-import { FaBell, FaCity, FaDashcube, FaDev, FaHome, FaLocationArrow, FaUserCircle } from "react-icons/fa";
+import { FaBell, FaCity, FaDashcube, FaDev, FaHome, FaLocationArrow, FaMoneyBill, FaUserCircle } from "react-icons/fa";
 import { Link, Outlet } from "react-router-dom";
 import { MdFormatQuote, MdMiscellaneousServices, MdOutlineHandshake, MdOutlineLibraryAdd, MdOutlineRealEstateAgent, MdReviews } from "react-icons/md";
 import { LuTableProperties } from "react-icons/lu";
@@ -53,10 +53,10 @@ const Dashboard = () => {
 
   const dashNav = (
     <ul className="menu bg-[#fff] text-base-content min-h-full w-full md:p-4 gap-2 align-middle">
-      <li>
+      <li className="bg-black rounded-sm">
         <img
-          src="https://i.ibb.co/55MrgtV/18a006575c097b8b99494b75da063caf.jpg"
-          className="w-1/2"
+          src="https://res.cloudinary.com/dnwmtd4p1/image/upload/v1730482634/nexile%20digital/hero/wbfge5djlrhoybvswg8s.webp"
+          className="w-full"
         />
       </li>
       <li>
@@ -324,6 +324,15 @@ const Dashboard = () => {
         >
           <RiErrorWarningLine />
           <span className="sidebar-text">About</span>
+        </Link>
+      </li>
+      <li>
+        <Link
+          to={"/pricing"}
+          className="p-3 bg-[#7e7e7e1a] rounded flex items-center gap-2 side-li "
+        >
+          <FaMoneyBill />
+          <span className="sidebar-text">Pricing</span>
         </Link>
       </li>
       <li>
