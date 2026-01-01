@@ -14,6 +14,7 @@ const TechStack = () => {
   const [loading, setLoading] = useState(false);
   const [isUpdating, setIsUpdating] = useState(false);
   const [currentEntry, setCurrentEntry] = useState(null);
+const [searchTerm, setSearchTerm] = useState('');
 
   // Function to handle image change
   const handleImageChange = (e) => {
@@ -131,6 +132,10 @@ for (let entry of formData.entries()) {
     setCurrentEntry(entry);
     setIsUpdating(true);
   };
+const filteredEntries = entries.filter(entry =>
+  entry.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
+  entry.description.toLowerCase().includes(searchTerm.toLowerCase())
+);
 
   // Function to handle deletion of an entry
   const handleDeleteEntry = async (id) => {
@@ -272,17 +277,27 @@ for (let entry of formData.entries()) {
           {isUpdating ? 'Update Tech Stack' : 'Add Tech Stack'}
         </button>
       </form>
+<div className="lg:w-1/2 md:w-[80%] w-[96%] mx-auto mt-6">
+  <input
+    type="text"
+    placeholder="Search tech stack..."
+    value={searchTerm}
+    onChange={(e) => setSearchTerm(e.target.value)}
+    className="p-2 border border-gray-300 rounded-md w-full"
+  />
+</div>
 
       {/* List of entries */}
-      {entries?.length > 0 ? (
+      {filteredEntries?.length > 0 ? (
         <h2 className="text-xl font-semibold mt-10">Tech Stacks</h2>
+        
       ) : (
         <p className="lg:w-1/2 md:w-[80%] w-[96%] mx-auto text-white p-4 bg-red-400 rounded-md mt-5">
           No entries found
         </p>
       )}
       <div className="mt-6 flex flex-wrap gap-4">
-        {entries?.map((entry) => (
+        {filteredEntries?.map((entry) => (
           <div key={entry._id} className="border bg-white rounded-xl p-4 w-60">
             <h3 className="font-bold">{entry.title}</h3>
             <p>{truncateDescription(entry.description, 50)}</p>
